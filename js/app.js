@@ -1,24 +1,22 @@
-function plots(sample_ID) {
-
 d3.json("samples.json").then((data)=> {
-    console.log("Unaltered Data:", data);
+    console.log("data:", data);
 
     //names
     let names = data.filter(names);
-    let meta_data = data.import(meta_data);
     //
     let drop_down = d3.select("#selDataset");
     drop_down.append("option").text(id)
 
     //for metadata
+    let meta_data = data.metadata[0];
     Object.entries(meta_data).forEach(([key, value]) => {
         d3.select("#sample-metadata").append("li").text(`${key} :  ${value}`)
     });
 
     //barchart stuff
     //patient data from here 
-    let patients = data.samples.filter((patient) => patient.id === sample_ID);
-    console.log("Patient Data:", patients);
+    let patients = data.sample[0].sampe_values
+    console.log("patients:", patients)
     let patients_10 = data.samples[0].patients.slice(0, 10).reverse()
     console.log("Top 10 Sample Values:", patients_10);
     //otuIds
@@ -48,7 +46,7 @@ d3.json("samples.json").then((data)=> {
     
 });
 
-}
+
 
 
 //// var trace1 = {
