@@ -7,7 +7,7 @@ function buildPlots(sample_id){
         //patient data from here 
         let samples = data.samples.filter((data) => data.id === sample_id);
         console.log("Specified Patient Data:", samples); 
-        let patients_10 = data.samples[0].patients.slice(0, 10).reverse()
+        let patients_10 = data.samples[0].samples.slice(0, 10).reverse()
         console.log("Top 10 Sample Values:", patients_10);
         //otuIds
         let otu_ids = data.samples[0].otu_ids
@@ -37,7 +37,7 @@ function buildPlots(sample_id){
         //bubble
         let trace2= {
         x: otu_ids,
-        y: patients,
+        y: samples,
         text: otu_labels
         }
         var datas = [trace2];
