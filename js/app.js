@@ -1,14 +1,4 @@
 
-d3.json("samples.json").then((data)=> {
-    let names = data.filter(names);
-    let drop_down = d3.select("#selDataset");
-    names.forEach(id => drop_down.append("option").text(id))
-    //metadata
-    var MetaData = data.metadata[0]
-    Object.entries(MetaData).forEach(([key, value]) => {
-        d3.select("#sample-metadata").append("ul").text(`${key} :  ${value}`)
-    });
-});
 
 function buildPlots(sample_id){
     d3.json("samples.json").then((data)=> {
@@ -58,3 +48,15 @@ function buildPlots(sample_id){
         Plotly.newPlot("bubble", datas, layout2)
     });
 }
+
+
+d3.json("samples.json").then((data)=> {
+    let names = data.filter(names);
+    let drop_down = d3.select("#selDataset");
+    names.forEach(id => drop_down.append("option").text(id))
+    //metadata
+    var MetaData = data.metadata[0]
+    Object.entries(MetaData).forEach(([key, value]) => {
+        d3.select("#sample-metadata").append("ul").text(`${key} :  ${value}`)
+    });
+});
