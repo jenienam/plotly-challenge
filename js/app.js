@@ -1,22 +1,22 @@
+
 d3.json("samples.json").then((data)=> {
     console.log("data:", data);
 
     //names
     let names = data.filter(names);
-    //
     let drop_down = d3.select("#selDataset");
-    drop_down.append("option").text(id)
+    names.forEach(id => drop_down.append("option").text(id))
 
     //for metadata
-    let meta_data = data.metadata[0];
-    Object.entries(meta_data).forEach(([key, value]) => {
-        d3.select("#sample-metadata").append("li").text(`${key} :  ${value}`)
+    var MetaData = data.metadata[0]
+    Object.entries(MetaData).forEach(([key, value]) => {
+        d3.select("#sample-metadata").append("ul").text(`${key} :  ${value}`)
     });
 
     //barchart stuff
     //patient data from here 
     let patients = data.sample[0].sampe_values
-    console.log("patients:", patients)
+    console.log("Patients:", patients)
     let patients_10 = data.samples[0].patients.slice(0, 10).reverse()
     console.log("Top 10 Sample Values:", patients_10);
     //otuIds
@@ -44,7 +44,21 @@ d3.json("samples.json").then((data)=> {
     };
     Plotly.newPlot("bar", data, layout);
     
+    //bubble
+    let trace2= {
+    x: otu_ids,
+    y: patients,
+    text: otu_labels
+    }
+    var datas = [trace2];
+    var layout2 = {
+        height: 600,
+        width: 1000
+    }
+    Plotly.newPlot("bubble", datas, layout2)
 });
+
+}
 
 
 
