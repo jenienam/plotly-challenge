@@ -5,7 +5,7 @@ function buildPlots(sample_id){
         console.log("data:", data);
 
         //patient data from here 
-        let samples = data.samples.filter((patient) => patient.id === sample_id);
+        let samples = data.samples.filter((data) => data.id === sample_id);
         console.log("Specified Patient Data:", samples); 
         let patients_10 = data.samples[0].patients.slice(0, 10).reverse()
         console.log("Top 10 Sample Values:", patients_10);
