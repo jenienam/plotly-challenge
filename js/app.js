@@ -1,22 +1,22 @@
-function buildPlots(patientId) {
+
+d3.json("samples.json").then((data)=> {
+    let names = data.filter(names);
+    let drop_down = d3.select("#selDataset");
+    names.forEach(id => drop_down.append("option").text(id))
+    //metadata
+    var MetaData = data.metadata[0]
+    Object.entries(MetaData).forEach(([key, value]) => {
+        d3.select("#sample-metadata").append("ul").text(`${key} :  ${value}`)
+    });
+});
+
+function buildPlots(sample_id){
     d3.json("samples.json").then((data)=> {
         console.log("data:", data);
 
-        //names
-        let names = data.filter(names);
-        let drop_down = d3.select("#selDataset");
-        names.forEach(id => drop_down.append("option").text(id))
-
-        //for metadata
-        var MetaData = data.metadata[0]
-        Object.entries(MetaData).forEach(([key, value]) => {
-            d3.select("#sample-metadata").append("ul").text(`${key} :  ${value}`)
-        });
-
-        //barchart stuff
         //patient data from here 
-        let patientSamples = patientData.samples.filter((patient) => patient.id === patientId);
-        console.log("Specified Patient Data:", patientSamples); 
+        let samples = data.samples.filter((patient) => patient.id === sample_id);
+        console.log("Specified Patient Data:", samples); 
         let patients_10 = data.samples[0].patients.slice(0, 10).reverse()
         console.log("Top 10 Sample Values:", patients_10);
         //otuIds
@@ -57,24 +57,4 @@ function buildPlots(patientId) {
         }
         Plotly.newPlot("bubble", datas, layout2)
     });
-
 }
-
-
-
-//// var trace1 = {
-//   x: ["beer", "wine", "martini", "margarita",
-//       "ice tea", "rum & coke", "mai tai", "gin & tonic"],
-//   y: [22.7, 17.1, 9.9, 8.7, 7.2, 6.1, 6.0, 4.6],
-//   type: "bar"
-// };
-
-// var data = [trace1];
-
-// var layout = {
-//   title: "'Bar' Chart",
-//   xaxis: { title: "Drinks"},
-//   yaxis: { title: "% of Drinks Ordered"}
-// };
-
-// Plotly.newPlot("plot", data, layout);
